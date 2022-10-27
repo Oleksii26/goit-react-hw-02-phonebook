@@ -1,4 +1,5 @@
 import React from "react";
+
 import css from './PhoneBook.module.css'
 
 class PhoneBook extends React.Component {
@@ -7,42 +8,61 @@ class PhoneBook extends React.Component {
         this.state = {
             contacts: [],
             name: '',
-            number: ''
+            number: '',
         }
     }
-    renderList = () => {
-        return this.state.contacts.map((nam, index) => <li className={css.item} key={nam + index}>{nam}</li>)
+    handleChange = e => {
+        this.setState({ [e.currentTarget.name]: e.currentTarget.value })
     }
-    handleInput = e => {
-        this.setState({ [e.target.name]: [e.target.value] })
-        // this.setState({ name: e.target.value })        
-    }
-    addItem = i => {
-        this.setState({ contacts: [...this.state.contacts, i] })
-    }
-    render() {
-        return <>
-            <div className={css.section}>
-                <h2 className={css.title}>Name</h2>
-                <input name="name" className={css.input} onChange={this.handleInput} value={this.state.name} />
-                <h2 className={css.title}>Number</h2>
-                <input
-                    className={css.input}
-                    type="tel"
-                    name="number"
-                    pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                    required
-                    onChange={this.handleInput}
-                />
-                <button className={css.btn} onClick={() => this.addItem(this.state.name)}>Add contact</button>
-                <h2 className={css.title}>Contacts</h2>
-            </div>
+    handleSubmit = e => {
+        e.preventDefault()
 
+        console.log(this.state)
+        this.reset()
+    }
+    reset = () => {
+        this.setState({
+            name: '',
+            number: '',
+        })
+    }
+    addContact = (item) => {
+        this.setState(({ contacts }) => ({ contacts: [...contacts, item], }))
+    }
+
+    renderList = (id, name, number, onRemove) => {
+        this.setState.contacts.map((nam) )
+        return <li>
+            {name}: {number} <button onClick={() => onRemove(id)}>delete</button>
+        </li>
+    }
+
+    render() {
+
+        return <>
+            <form className={css.form} onSubmit={this.handleSubmit}>
+                <label className={css.title}>Name
+                    <input name="name" className={css.input} onChange={this.handleChange} value={this.state.name} />
+                </label>
+                <label className={css.title}>Number
+                    <input
+                        className={css.input}
+                        type="tel"
+                        name="number"
+                        onChange={this.handleChange}
+                        value={this.state.number}
+                        // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                        required />
+                </label>
+                <button type="submit" className={css.btn} >Add contact</button>
+            </form>
+            <h2 className={css.title}>Contacts</h2>
             <ul className={css.list}>
-                {this.renderList()}
+                {'renderList'}
             </ul>
         </>
     }
+
 }
 export default PhoneBook
