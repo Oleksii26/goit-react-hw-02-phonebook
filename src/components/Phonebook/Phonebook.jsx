@@ -1,6 +1,6 @@
 import React from "react";
-
 import css from './PhoneBook.module.css'
+import shortid from "shortid";
 
 class PhoneBook extends React.Component {
     constructor(props) {
@@ -11,57 +11,52 @@ class PhoneBook extends React.Component {
             number: '',
         }
     }
-    handleChange = e => {
-        this.setState({ [e.currentTarget.name]: e.currentTarget.value })
+    nameInputId = shortid.generate()
+    numberInputId = shortid.generate()
+    
+    handleChangeForm = ({ target }) => {
+        const { name, value } = target
+        this.setState({ [name]: value })
     }
-    handleSubmit = e => {
-        e.preventDefault()
 
-        console.log(this.state)
-        this.reset()
+    handleFormSubmit = (e) => {
+        e.preventDefault()
+        const { name, number } = this.state
+        const { onAdd } = this.props
+        const isValidaterForm = this.validateForm()
+
+        if (!isValidaterForm) return
+        onAdd({ /* id, */ name, number })
+        this.resetForm()
     }
-    reset = () => {
+
+    validateForm = () => {
+        const { name, number } = this.state
+        const { onCheckUnique } = this.props
+        if (!name || !number) {
+            alert('Enter you date')
+            return false
+        }
+        return onCheckUnique(name)
+
+    }
+    resetForm = () => {
         this.setState({
             name: '',
-            number: '',
+            number: ''
         })
     }
-    addContact = (item) => {
-        this.setState(({ contacts }) => ({ contacts: [...contacts, item], }))
-    }
-
-    renderList = (id, name, number, onRemove) => {
-        this.setState.contacts.map((nam) )
-        return <li>
-            {name}: {number} <button onClick={() => onRemove(id)}>delete</button>
-        </li>
-    }
-
     render() {
-
-        return <>
-            <form className={css.form} onSubmit={this.handleSubmit}>
-                <label className={css.title}>Name
-                    <input name="name" className={css.input} onChange={this.handleChange} value={this.state.name} />
-                </label>
-                <label className={css.title}>Number
-                    <input
-                        className={css.input}
-                        type="tel"
-                        name="number"
-                        onChange={this.handleChange}
-                        value={this.state.number}
-                        // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                        required />
-                </label>
-                <button type="submit" className={css.btn} >Add contact</button>
-            </form>
-            <h2 className={css.title}>Contacts</h2>
-            <ul className={css.list}>
-                {'renderList'}
-            </ul>
-        </>
+        const { name, number } = this.state
+        return <form className={css.form} onSubmit={this.handleFormSubmit}>
+            <label className={css.label} htmlFor={this.nameInputId}>
+                Name
+                <input id={this.nameInputId} type="text" name='name' value={name} onChange={this.handleChangeForm} /></label>
+            <label className={css.label} htmlFor={this.numberInputId}>
+                Number
+                <input id={this.numberInputId} type="tel" name='number' value={number} onChange={this.handleChangeForm} /></label>
+            <button className={css.btn} type="submit">Add contact</button>
+        </form>
     }
 
 }
