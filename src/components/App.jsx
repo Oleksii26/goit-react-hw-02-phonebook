@@ -23,7 +23,7 @@ export class App extends React.Component {
   handleCheckUniqueContact = name => {
     const { contacts } = this.state
     const isExistContacts = !!contacts.find(e => e.name === name)
-    isExistContacts && alert("this contact is exist")
+    isExistContacts && alert(`${name} contact already exists`)
     return !isExistContacts
   }
 

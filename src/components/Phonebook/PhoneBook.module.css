@@ -3,7 +3,8 @@ body {
 }
 
 .item {
-    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .form {
@@ -25,7 +26,7 @@ body {
     margin-left: 30px;
     padding: 7px 12px;
     margin-left: 0;
-  
+    cursor: pointer;
 }
 
 .btn:hover {
@@ -39,9 +40,23 @@ body {
 }
 
 .input {
-   margin-top: 30px;
+    margin-top: 30px;
 }
 
 .title {
     margin: 10px 20px;
+}
+.btnDelete {
+    margin-left: 30px;
+    padding: 4px 6px;
+    margin-left: 0;
+    cursor: pointer;
+    position: absolute;
+    left: 280px;
+}
+
+.btnDelete:hover {
+    background-color: black;
+    color: white;
+    border-radius: 4px;
 }

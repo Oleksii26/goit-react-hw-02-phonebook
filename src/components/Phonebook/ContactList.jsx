@@ -3,8 +3,8 @@ import css from './PhoneBook.module.css'
 
 const ContactListItem = ({ id, name, number, onRemove }) => {
 
-    return (<li>
-        {name}: {number} <button onClick={() => onRemove(id)}>delete</button>
+    return (<li className={css.item}>
+        {name}: {number} <button className={css.btnDelete} onClick={() => onRemove(id)}>delete</button>
     </li>)
 }
 

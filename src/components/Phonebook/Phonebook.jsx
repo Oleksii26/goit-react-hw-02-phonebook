@@ -13,7 +13,7 @@ class PhoneBook extends React.Component {
     }
     nameInputId = shortid.generate()
     numberInputId = shortid.generate()
-    
+
     handleChangeForm = ({ target }) => {
         const { name, value } = target
         this.setState({ [name]: value })
@@ -34,7 +34,7 @@ class PhoneBook extends React.Component {
         const { name, number } = this.state
         const { onCheckUnique } = this.props
         if (!name || !number) {
-            alert('Enter you date')
+            
             return false
         }
         return onCheckUnique(name)
@@ -51,10 +51,18 @@ class PhoneBook extends React.Component {
         return <form className={css.form} onSubmit={this.handleFormSubmit}>
             <label className={css.label} htmlFor={this.nameInputId}>
                 Name
-                <input id={this.nameInputId} type="text" name='name' value={name} onChange={this.handleChangeForm} /></label>
+                <input type="text"
+                    name="name"
+                    pattern="^[a-zA-Zаі-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                    title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                    required id={this.nameInputId} value={name} onChange={this.handleChangeForm} /></label>
             <label className={css.label} htmlFor={this.numberInputId}>
                 Number
-                <input id={this.numberInputId} type="tel" name='number' value={number} onChange={this.handleChangeForm} /></label>
+                <input type="tel"
+                    name="number"
+                    pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                    required id={this.numberInputId} value={number} onChange={this.handleChangeForm} /></label>
             <button className={css.btn} type="submit">Add contact</button>
         </form>
     }
