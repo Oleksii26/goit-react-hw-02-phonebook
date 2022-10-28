@@ -53,7 +53,7 @@ class PhoneBook extends React.Component {
                 Name
                 <input type="text"
                     name="name"
-                    pattern="^[a-zA-Zаі-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                    pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                     required id={this.nameInputId} value={name} onChange={this.handleChangeForm} /></label>
             <label className={css.label} htmlFor={this.numberInputId}>
