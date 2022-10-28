@@ -26,7 +26,7 @@ class PhoneBook extends React.Component {
         const isValidaterForm = this.validateForm()
 
         if (!isValidaterForm) return
-        onAdd({ /* id, */ name, number })
+        onAdd({ id: shortid.generate(), name, number })
         this.resetForm()
     }
 
